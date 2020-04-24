@@ -1,0 +1,390 @@
+﻿@model IEnumerable<UserContracts>
+@using Models
+@using Tools
+
+@{
+    ViewBag.Title = "تابلو معاملات";
+    Users user = ViewBag.user;
+}
+<div class="modal fade text-left" id="large" tabindex="-1" role="dialog" aria-labelledby="myModalLabel17"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Basic Modal</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalbody">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@if (string.IsNullOrEmpty(user.Token))
+{
+    <div class="alert alert-danger">
+        <p>
+            لطفا برای شروع عملیات کد توکن خود را از طریق لینک زیر وارد نمایید
+        </p>
+        <h2><a href="/UserPanel/Account/SetToken">تنظیم توکن </a></h2>
+
+    </div>
+}
+else
+{
+    if (Model != null)
+    {
+        @Html.Action("DashbordResult")
+    }
+
+
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-12">
+                <button type="button" onclick="addrow()" class="btn btn-float btn-block btn-float-lg btn-outline-grey-blue" data-toggle="modal"
+                        data-target="#large">
+                    <i class="fa fa-plus"></i>
+                    <span>افزوده ردیف معامله</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+}
+@section Header
+{
+    <link href="~/app-assets/vendors/css/forms/toggle/switchery.min.css" rel="stylesheet" />
+    <link href="~/app-assets/css-rtl/plugins/forms/switch.min.css" rel="stylesheet" />
+    <link href="~/app-assets/vendors/css/extensions/sweetalert.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css-rtl/core/colors/palette-gradient.css" />
+    <link rel="stylesheet" type="text/css" href="~/app-assets/fonts/simple-line-icons/style.css" />
+}
+
+
+@section foter
+{
+
+    <script src="~/app-assets/vendors/js/forms/toggle/bootstrap-checkbox.min.js"></script>
+    <script src="~/app-assets/vendors/js/forms/toggle/switchery.min.js"></script>
+    <script src="~/app-assets/js/scripts/forms/switch.min.js"></script>
+    <script src="~/app-assets/vendors/js/extensions/sweetalert.min.js"></script>
+    @foreach (var item in Model)
+    {
+        <script>
+            function chartView(id) {
+                var url = "/MainPanel/Cheart/chart?";
+                var con1 = $("#symbol1-" + id).html();
+                var con2 = $("#symbol2-" + id).html();
+                var s = @Html.Raw(DateTime.Now.toshamsi());
+                var e = @Html.Raw(DateTime.Now.toshamsi());
+                url += 'symbol=' + con1 + '&symbol=' + con2 ;
+                window.open(url);
+            }
+
+            $(function () {
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/MainPanel/Home/GetContractDitails/@item.ContractID1',
+                    dataType: 'json',
+                    success: function (data) {
+                        @*var askcont1_@item = data.askPrice1;
+                        var bidcont1_@item=data.bidPrice1;*@
+                        $('#settlementsDate-1-@item.ID')
+                            .html(data.settlementsDate + ' - ' + (data.settlementsPrice).toLocaleString('en'));
+                        $('#symbol1-@item.ID').html(data.symbol);
+                        $('#askVolume1-1-@item.ID').html(data.askVolume1);
+                        $('#askPrice1-1-@item.ID').html(((data.askPrice1).toLocaleString('en')));
+                        $('#askVolume2-1-@item.ID').html(data.askVolume2);
+                        $('#askPrice2-1-@item.ID').html(((data.askPrice2).toLocaleString('en')));
+                        $('#askVolume3-1-@item.ID').html(data.askVolume3);
+                        $('#askPrice3-1-@item.ID').html(((data.askPrice3).toLocaleString('en')));
+                        $('#bidVolume1-1-@item.ID').html(data.bidVolume1);
+                        $('#bidPrice1-1-@item.ID').html(((data.bidPrice1).toLocaleString('en')));
+                        $('#bidVolume2-1-@item.ID').html(data.bidVolume2);
+                        $('#bidPrice2-1-@item.ID').html(((data.bidPrice2).toLocaleString('en')));
+                        $('#bidVolume3-1-@item.ID').html(data.bidVolume3);
+                        $('#bidPrice3-1-@item.ID').html(((data.bidPrice3).toLocaleString('en')));
+                        $('#firstTradedPrice-1-@item.ID').html(((data.firstTradedPrice).toLocaleString('en')));
+                        $('#highTradedPrice-1-@item.ID').html(((data.highTradedPrice).toLocaleString('en')));
+                        $('#lowTradedPrice-1-@item.ID').html(((data.lowTradedPrice).toLocaleString('en')));
+                        $('#lastTradedPrice-1-@item.ID').html(((data.lastTradedPrice).toLocaleString('en')));
+                        $('#tradesValue-1-@item.ID').html(((data.tradesValue).toLocaleString('en')));
+                        $('#realtimePrice-1-@item.ID').html(((data.realtimePrice).toLocaleString('en')));
+                        $('#initialMargin-1-@item.ID').html(((data.initialMargin).toLocaleString('en')));
+
+                        $('#tradesVolume-1-@item.ID').html(data.tradesVolume);
+                        $('#openInterestsChanges-1-@item.ID').html(data.openInterestsChanges);
+                        $('#ordersPDateTime-1-@item.ID').html(data.ordersPDateTime);
+                        $('#firstTradedPDateTime-1-@item.ID').html(data.firstTradedPDateTime);
+                        $('#lastTradedPDateTime-1-@item.ID').html(data.lastTradedPDateTime);
+                        $('#lastTradingPDateTime-1-@item.ID').html(data.lastTradingPDateTime);
+                        $('#openInterests-1-@item.ID').html(data.openInterests);
+                        $('#lot-1-@item.ID').html(data.lot);
+                        var lastchangevalue = (parseFloat(data.lastTradedPrice) - parseFloat(data.settlementsPrice));
+                        if (parseFloat(lastchangevalue) == parseFloat('-' + data.settlementsPrice)) {
+                            $('#lastchangevalue-1-@item.ID').html('0');
+                            $('#changeratelast-1-@item.ID').html('%0');
+                        } else {
+                            $('#lastchangevalue-1-@item.ID').html(lastchangevalue.toLocaleString('en'));
+                            $('#changeratelast-1-@item.ID')
+                                .html('%' + (lastchangevalue / (parseFloat(data.settlementsPrice) / 100)).toFixed(2));
+                        }
+                        var lowchangevalue = (parseFloat(data.lowTradedPrice) - parseFloat(data.settlementsPrice));
+                        if (parseFloat(lowchangevalue) == parseFloat('-' + data.settlementsPrice)) {
+                            $('#lowchangevalue-1-@item.ID').html('0');
+                            $('#changeratelow-1-@item.ID').html('%0');
+                        } else {
+                            $('#lowchangevalue-1-@item.ID').html(lowchangevalue.toLocaleString('en'));
+                            $('#changeratelow-1-@item.ID')
+                                .html('%' + (lowchangevalue / (parseFloat(data.settlementsPrice) / 100)).toFixed(2));
+                        }
+                        var Hightchangevalue =
+                            ((parseFloat(data.highTradedPrice) - parseFloat(data.lastWorkingSettlementPrice)));
+                        if (parseFloat(Hightchangevalue) == parseFloat('-' + data.lastWorkingSettlementPrice)) {
+                            $('#Hightchangevalue-1-@item.ID').html('0');
+                            $('#changeratehight-1-@item.ID').html('%0');
+                        } else {
+                            $('#Hightchangevalue-1-@item.ID').html(Hightchangevalue.toLocaleString('en'));
+                            $('#changeratehight-1-@item.ID')
+                                .html('%' + (Hightchangevalue / (parseFloat(data.settlementsPrice) / 100)).toFixed(2));
+                        }
+                        var firstchangevalue =
+                            ((parseFloat(data.firstTradedPrice) - parseFloat(data.lastWorkingSettlementPrice)));
+                        if (parseFloat(firstchangevalue) == parseFloat('-' + data.lastWorkingSettlementPrice)) {
+                            $('#firstchangevalue-1-@item.ID').html('0');
+                            $('#changeratefirst-1-@item.ID').html('%0');
+                        } else {
+                            $('#firstchangevalue-1-@item.ID').html(firstchangevalue.toLocaleString('en'));
+                            $('#changeratefirst-1-@item.ID')
+                                .html('%' + (firstchangevalue / (parseFloat(data.settlementsPrice) / 100)).toFixed(2));
+                        }
+                    }
+                });
+                $.ajax({
+                    type: 'GET',
+                    url: '/MainPanel/Home/GetContractDitails/@item.ContractID2',
+                    dataType: 'json',
+                    success: function (data) {
+                        @*var  askcont2_@item = data.askPrice1;
+                     var  bidcont2_@item = data.bidPrice1;*@
+                        $('#priceType-2-@item.ID').html(data.priceType);
+                        $('#settlementsDate-2-@item.ID')
+                            .html(data.settlementsDate + ' - ' + (data.settlementsPrice).toLocaleString('en'));
+                        $('#symbol2-@item.ID').html(data.symbol);
+                        $('#askVolume1-2-@item.ID').html(data.askVolume1);
+                        $('#askPrice1-2-@item.ID').html(((data.askPrice1).toLocaleString('en')));
+                        $('#askVolume2-2-@item.ID').html(data.askVolume2);
+                        $('#askPrice2-2-@item.ID').html(((data.askPrice2).toLocaleString('en')));
+                        $('#askVolume3-2-@item.ID').html(data.askVolume3);
+                        $('#askPrice3-2-@item.ID').html(((data.askPrice3).toLocaleString('en')));
+                        $('#bidVolume1-2-@item.ID').html(data.bidVolume1);
+                        $('#bidPrice1-2-@item.ID').html(((data.bidPrice1).toLocaleString('en')));
+                        $('#bidVolume2-2-@item.ID').html(data.bidVolume2);
+                        $('#bidPrice2-2-@item.ID').html(((data.bidPrice2).toLocaleString('en')));
+                        $('#bidVolume3-2-@item.ID').html(data.bidVolume3);
+                        $('#bidPrice3-2-@item.ID').html(((data.bidPrice3).toLocaleString('en')));
+                        $('#firstTradedPrice-2-@item.ID').html(((data.firstTradedPrice).toLocaleString('en')));
+                        $('#highTradedPrice-2-@item.ID').html(((data.highTradedPrice).toLocaleString('en')));
+                        $('#lowTradedPrice-2-@item.ID').html(((data.lowTradedPrice).toLocaleString('en')));
+                        $('#lastTradedPrice-2-@item.ID').html(((data.lastTradedPrice).toLocaleString('en')));
+                        $('#tradesValue-2-@item.ID').html(((data.tradesValue).toLocaleString('en')));
+                        $('#realtimePrice-2-@item.ID').html(((data.realtimePrice).toLocaleString('en')));
+                        $('#initialMargin-2-@item.ID').html(((data.initialMargin).toLocaleString('en')));
+
+                        $('#tradesVolume-2-@item.ID').html(data.tradesVolume);
+                        $('#openInterestsChanges-2-@item.ID').html(data.openInterestsChanges);
+                        $('#ordersPDateTime-2-@item.ID').html(data.ordersPDateTime);
+                        $('#firstTradedPDateTime-2-@item.ID').html(data.firstTradedPDateTime);
+                        $('#lastTradedPDateTime-2-@item.ID').html(data.lastTradedPDateTime);
+                        $('#lastTradingPDateTime-2-@item.ID').html(data.lastTradingPDateTime);
+                        $('#openInterests-2-@item.ID').html(data.openInterests);
+                        $('#lot-2-@item.ID').html(data.lot);
+                        var lastchangevalue = (parseFloat(data.lastTradedPrice) - parseFloat(data.settlementsPrice));
+                        if (parseFloat(lastchangevalue) == parseFloat('-' + data.settlementsPrice)) {
+                            $('#lastchangevalue-2-@item.ID').html('0');
+                            $('#changeratelast-2-@item.ID').html('%0');
+                        } else {
+                            $('#lastchangevalue-2-@item.ID').html(lastchangevalue.toLocaleString('en'));
+                            $('#changeratelast-2-@item.ID')
+                                .html('%' + (lastchangevalue / (parseFloat(data.settlementsPrice) / 100)).toFixed(2));
+                        }
+                        var lowchangevalue = (parseFloat(data.lowTradedPrice) - parseFloat(data.settlementsPrice));
+                        if (parseFloat(lowchangevalue) == parseFloat('-' + data.settlementsPrice)) {
+                            $('#lowchangevalue-2-@item.ID').html('0');
+                            $('#changeratelow-2-@item.ID').html('%0');
+                        } else {
+                            $('#lowchangevalue-2-@item.ID').html(lowchangevalue.toLocaleString('en'));
+                            $('#changeratelow-2-@item.ID')
+                                .html('%' + (lowchangevalue / (parseFloat(data.settlementsPrice) / 100)).toFixed(2));
+                        }
+                        var Hightchangevalue =
+                            ((parseFloat(data.highTradedPrice) - parseFloat(data.lastWorkingSettlementPrice)));
+                        if (parseFloat(Hightchangevalue) == parseFloat('-' + data.lastWorkingSettlementPrice)) {
+                            $('#Hightchangevalue-2-@item.ID').html('0');
+                            $('#changeratehight-2-@item.ID').html('%0');
+                        } else {
+                            $('#Hightchangevalue-2-@item.ID').html(Hightchangevalue.toLocaleString('en'));
+                            $('#changeratehight-2-@item.ID')
+                                .html('%' + (Hightchangevalue / (parseFloat(data.settlementsPrice) / 100)).toFixed(2));
+                        }
+                        var firstchangevalue =
+                            ((parseFloat(data.firstTradedPrice) - parseFloat(data.lastWorkingSettlementPrice)));
+                        if (parseFloat(firstchangevalue) == parseFloat('-' + data.lastWorkingSettlementPrice)) {
+                            $('#firstchangevalue-2-@item.ID').html('0');
+                            $('#changeratefirst-2-@item.ID').html('%0');
+                        } else {
+                            $('#firstchangevalue-2-@item.ID').html(firstchangevalue.toLocaleString('en'));
+                            $('#changeratefirst-2-@item.ID')
+                                .html('%' + (firstchangevalue / (parseFloat(data.settlementsPrice) / 100)).toFixed(2));
+                        }
+
+
+                    }
+                });
+                $('#nesbat12_@item.ID').html((parseFloat(($("#askPrice1-2-@item.ID").html().replace(',', '')).replace(',', '')) - parseFloat(($("#bidPrice1-1-@item.ID").html().replace(',', '')).replace(',', ''))).toLocaleString('en'));
+                $('#nesbat21_@item.ID').html((parseFloat(($("#bidPrice1-2-@item.ID").html().replace(',', '')).replace(',', '')) - parseFloat(($("#askPrice1-1-@item.ID").html().replace(',', '')).replace(',', ''))).toLocaleString('en'));
+                @*var startTime = @ViewBag.startTime;
+                var endTime = @ViewBag.endTime;
+                var curr_time = getval();
+
+                if (get24Hr(curr_time) > get24Hr(startTime) && get24Hr(curr_time) < get24Hr(endTime)) {
+
+                }*@
+                setTimeout(arguments.callee, 1000);
+                //setTimeout(arguments.callee, 1000);
+                $.ajax({
+                    type: 'GET',
+                    url: '/MainPanel/Home/GetContractName/@item.ContractID1',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#ContractID1-@item.ID").html(data.name);
+                    }
+                });
+                $.ajax({
+                    type: 'GET',
+                    url: '/MainPanel/Home/GetContractName/@item.ContractID2',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#ContractID2-@item.ID").html(data.name);
+                    }
+                });
+
+            });
+            function get24Hr(time){
+                var hours = Number(time.match(/^(\d+)/)[1]);
+                var AMPM = time.match(/\s(.*)$/)[1];
+                if(AMPM == "PM" && hours<12) hours = hours+12;
+                if(AMPM == "AM" && hours==12) hours = hours-12;
+
+                var minutes = Number(time.match(/:(\d+)/)[1]);
+                hours = hours*100+minutes;
+                console.log(time +" - "+hours);
+                return hours;
+            }
+
+            function getval() {
+                var currentTime = new Date()
+                var hours = currentTime.getHours()
+                var minutes = currentTime.getMinutes()
+
+                if (minutes < 10) minutes = "0" + minutes;
+
+                var suffix = "AM";
+                if (hours >= 12) {
+                    suffix = "PM";
+                    hours = hours - 12;
+                }
+                if (hours == 0) {
+                    hours = 12;
+                }
+                var current_time = hours + ":" + minutes + " " + suffix;
+
+                return current_time;
+
+            }
+        </script>
+
+    }
+    <script>
+
+        function deletrow(id) {
+            swal({
+                title: "حذف ردیف معامله",
+                text: "آیا از پاک کردن این ردیف معامله اطمینان داردی ؟",
+                icon: "warning",
+                buttons: {
+                    cancel: {
+                        text: "لغو دستور",
+                        value: null,
+                        visible: true,
+                        className: "",
+                        closeModal: false,
+                    },
+                    confirm: {
+                        text: "تایدد حذف ",
+                        value: true,
+                        visible: true,
+                        className: "",
+                        closeModal: false
+                    }
+                }
+            })
+                .then((isConfirm) => {
+                    if (isConfirm) {
+                        $.get("/MainPanel/Home/deletedrow/" + id,
+                            function () {
+                                $("#item_" + id).hide('slow');
+                                swal("حذف ردیف معامله", "ردیف معامله مورد نظر شما با موفقیت حذف گردیده شد.", "success");
+                            });
+
+                    } else {
+                        swal("لغو دستور", "دستور حذف ردیف معامله لغو گردیده شد.", "error");
+                    }
+                });
+
+        };
+        function addrow() {
+
+            $.get('/MainPanel/Home/AddContractRow',
+                function (result) {
+                    $("#myModalLabel").html('افزودن ردیف معامله جدید');
+                    $("#modalbody").html(result);
+                });
+        }
+        function Editerow(id) {
+
+            $.get('/MainPanel/Home/EditeRowContract/' + id,
+                function (result) {
+                    $("#myModalLabel").html('ویرایش ردیف معامله ');
+                    $("#modalbody").html(result);
+                });
+        }
+
+    </script>
+
+    <script>
+
+        $(".switch9").on('change',
+            function () {
+                var vaaal = $(this).val();
+                if ($(this).is(':checked')) {
+
+                    $.get('/MainPanel/Home/changestatus?id=' + vaaal + '&statos=' + 'true',
+                        function () {
+                            alert('معامله اتوماتیک ردیف قرار داد انتخاب شده فعال گردیده شد');
+                        });
+                } else {
+
+                    $.get('/MainPanel/Home/changestatus?id=' + vaaal + '&statos=' + 'false',
+                        function () {
+                            alert('معامله اتوماتیک ردیف قرار داد انتخاب شده غیرفعال گردیده شد');
+                        });
+                }
+            });
+    </script>
+}

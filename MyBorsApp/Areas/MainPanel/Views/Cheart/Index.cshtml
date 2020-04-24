@@ -1,0 +1,130 @@
+﻿@model DotNet.Highcharts.Highcharts
+
+@{
+    ViewBag.Title = "مشاهده نمودار معاملات آتی";
+
+
+
+}
+@section Header
+{
+
+    <link href="~/Content/MD.BootstrapPersianDateTimePicker-master-bs4/jquery.md.bootstrap.datetimepicker.style.css" rel="stylesheet" />
+}
+@section foter
+{
+
+    <script src="~/Content/MD.BootstrapPersianDateTimePicker-master-bs4/jquery.md.bootstrap.datetimepicker.js"></script>
+    <script>
+        $('#date1').MdPersianDateTimePicker({
+            targetTextSelector: '#startat',
+            
+            dateFormat: 'yyyy-MM-dd',
+            isGregorian: false,
+            enableTimePicker: false,
+            disableBeforeToday: false,
+            
+            
+        });
+        $('#date2').MdPersianDateTimePicker({
+            targetTextSelector: '#endat',
+            
+            dateFormat: 'yyyy-MM-dd',
+            isGregorian: false,
+            enableTimePicker: false,
+            disableBeforeToday: false,
+            
+            
+        });
+        function toEnglishNumber(strNum) {
+            var pn = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+            var en = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+            var an = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+            var cache = strNum;
+            for (var i = 0; i < 10; i++) {
+                var regex_fa = new RegExp(pn[i], 'g');
+                var regex_ar = new RegExp(an[i], 'g');
+                cache = cache.replace(regex_fa, en[i]);
+                cache = cache.replace(regex_ar, en[i]);
+            }
+            return cache;
+        }
+        function sendvalue() {
+            var start =toEnglishNumber($("#startat").val());
+            var end = toEnglishNumber($("#endat").val());
+            var symbols = [];
+            var url='/MainPanel/Cheart/chart?';
+            $('input[name="symbolchek"]:checked').each(function () {
+                url += 'symbol=' + this.value+'&';
+                
+            });
+           
+            url += 'starTime=' + start + '&endDateTime=' + end;
+            window.open(url, '_blank');
+        }
+    </script>
+}
+<div class="card">
+    <div class="card-body">
+        <!-- Stacked Area Chart -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>تنظیم تاریخ</h4>
+                    </div>
+                    <div class="">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text cursor-pointer" id="date1">از تاریخ:</span>
+                                        </div>
+                                        <input type="text" id="startat" class="form-control" placeholder="لطفا روی تاریخ کلید نمایید"
+                                               aria-label="date1" aria-describedby="date1">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text cursor-pointer" id="date2">تا تاریخ:</span>
+                                        </div>
+                                        <input type="text" id="endat" class="form-control" placeholder="لطفا روی تاریخ کلید نمایید"
+                                               aria-label="date1" aria-describedby="date1">
+                                        
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4>انتخاب کالاها</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-control">
+                            @foreach (var item in ViewBag.symbols as List<string>)
+                            {
+                                <div class="col-md-3"><input type="checkbox" name="symbolchek" value="@item" title="@item" />@item</div>
+                            }
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="card">
+                        <button class="btn btn-black btn-success" onclick="sendvalue()">مشاهده</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Irregular Line Two Value Axis Chart -->
+    </div>
+</div>
+
+

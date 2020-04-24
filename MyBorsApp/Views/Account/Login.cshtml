@@ -1,0 +1,69 @@
+﻿@model Models.Models.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "ورود به سایت ";
+}
+
+    <div class="col-md-4 col-10 box-shadow-2 p-0">
+        <div class="card border-grey border-lighten-3 m-0">
+            <div class="card-header border-0">
+                <div class="card-title text-center">
+                    <div class="p-1">
+                        <img src="/app-assets/images/logo/stack-logo-dark.png" alt="branding logo">
+                    </div>
+                </div>
+                <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
+                    <span>ورود به سایت </span>
+                </h6>
+            </div>
+            <div class="card-content">
+                <div class="card-body">
+                    
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new {@class = "form-horizontal form-simple"}))
+                    {
+                        @Html.AntiForgeryToken()
+
+
+                        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                        <fieldset class="form-group position-relative has-icon-left mb-0">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control form-control-lg", placeholder = "ایمیل" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                            
+                            <div class="form-control-position">
+                                <i class="ft-user"></i>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group position-relative has-icon-left">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control form-control-lg", placeholder = "رمز عبور" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                            
+                            <div class="form-control-position">
+                                <i class="fa fa-key"></i>
+                            </div>
+                        </fieldset>
+                        <div class="form-group row">
+                            <div class="col-md-6 col-12 text-center text-md-left">
+                                <fieldset>
+                                    @Html.EditorFor(model => model.RememberMe, new { htmlAttributes = new { @class = "chk-remember" }})
+                                    @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
+                                    @*<input type="checkbox" id="remember-me" class="chk-remember">*@
+                                    <label for="remember-me"> مرابه یاد داشته باش</label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-12 text-center text-md-right"><a href="/ForgotPassword" class="card-link">بازیابی رمز عبور</a></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="ft-unlock"></i> ورود </button>
+                    }
+                   
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="">
+                   
+                    <p class="float-sm-right text-center m-0"> <a href="/Register" class="card-link">ثبت نام در سایت</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+

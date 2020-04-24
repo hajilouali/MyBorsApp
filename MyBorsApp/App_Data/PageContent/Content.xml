@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <totalvistDay>
+    <coun>52</coun>
+  </totalvistDay>
+  <EmailSetting>
+    <EmailHost>takaluminium.ir</EmailHost>
+    <EmailUserName>info@takaluminium.ir</EmailUserName>
+    <EmailPassword>gHh6v55*</EmailPassword>
+    <EmailPort>25</EmailPort>
+  </EmailSetting>
+  <contact>
+    <email>hajilouali@gmail.com</email>
+    <Phone>02146891582</Phone>
+    <address>شعبه اول : آسیا ، ایران ، تهران شهریار </address>
+    <FaceBook>
+    </FaceBook>
+    <Instagram>
+    </Instagram>
+    <Telegram>
+    </Telegram>
+    <Aparat>
+    </Aparat>
+  </contact>
+  <siteSetting>
+    <logo>logo_dark.png</logo>
+    <fivicon>c41bf62f-6bd9-4e8a-bb1a-265558992d96.png</fivicon>
+    <siteName>تک آلومینیوم ایران</siteName>
+    <siteDiscription>توضیحات شرکت برای نمونه شما با یک محصول فوق العاده که متعلق به یک شرکت حرفه ای است ، رو به رو هستید. </siteDiscription>
+    <sitekeywords>کلمات ,  کلیدی  , کلمات کلیدی</sitekeywords>
+    <Catalog>
+    </Catalog>
+  </siteSetting>
+  <home>
+    <Wellcome>&lt;header class="text-center margin-bottom-40"&gt;
+&lt;h1 class="weight-300"&gt;آلومینیوم نوین&lt;/h1&gt;
+
+&lt;h2 class="weight-300 letter-spacing-1 size-13"&gt;&lt;span&gt;بزرگترین واحد صنعتی تولید پروفیل های آلومینیومی &lt;/span&gt;&lt;/h2&gt;
+&lt;/header&gt;
+
+&lt;div class="text-center"&gt;
+&lt;p class="lead"&gt;آلومینیوم نوین با دارا بودن بیش از 30 سال تجربه در زمینه تولید انواع پروفیل های آلومینیومی در مقاطع مختلف و همچنین انواع فراوردی های آلومینیوم همچون خدمات آنودایز ، انواع رنگ های پودری ، طراحی و تولید انواع قالب های اکستروژن و با داشتن رزومه ای پربار آماده ارائه انواع خدمات مد نظر مشتریان میباشد .&amp;nbsp;&lt;/p&gt;
+
+&lt;div class="margin-top-40"&gt;&lt;img alt="welcome" class="img-responsive" src="/img/ezgif.jpg" /&gt;&lt;/div&gt;
+&lt;/div&gt;
+</Wellcome>
+    <Features>&lt;div class="col-sm-4"&gt;
+&lt;h3 class="weight-300"&gt;آشنایی با &lt;span&gt;فعالیت های ما&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;تک آلومینیوم ابتدا در سال 1375 با نام آلومینیوم نوین و با مدیریت آقای رضاپور در زمینه اکسترود پروفیل آلومینیوم شروع به فعالیت نمود . شروع به کار این مجموعه ابتدا در محموعه ای با مساحت 3 هزار متر مربع واقع در شهرک صنعتی شهید زواره ای در آدران فعالیت نمود.&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;این محموعه هم اکنون با مساحت زیر بنای بالغ بر 10 هزار متر مربع و با تجهیز با اخرین تکنولوژی های مدرن و تاسیس انواع واحد های فرار وری آلومینیوم همچون واحد آنودایز ، طراحی قالب های اکستروژن و ... در حال فعالیت بوده ...&lt;/p&gt;
+
+&lt;p&gt;از خدمات ما می توان به موارد زیر اشاره کرد :&amp;nbsp;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;ul class="list-unstyled list-icons"&gt;
+	&lt;li&gt;اکسترود انواع مقاطع پروفیل آلومینیومی تا قطر 40&amp;nbsp; سانتی متر&lt;/li&gt;
+	&lt;li&gt;طراحی و ساخت انواع قالب های اکستروژن&amp;nbsp;&lt;/li&gt;
+	&lt;li&gt;آنودایز آلومینیوم&amp;nbsp;&lt;/li&gt;
+	&lt;li&gt;رنگ پودری آلومینیوم&amp;nbsp;&lt;/li&gt;
+	&lt;li&gt;&amp;nbsp;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;div class="col-sm-8"&gt;&lt;img alt="product image" src="/img/Download-Engineer-PNG-Image.png" /&gt;&lt;/div&gt;
+</Features>
+  </home>
+</Root>

@@ -1,0 +1,194 @@
+﻿@using Models.Site.Models.Chart
+
+@{
+    Layout = null;
+    var li = ViewBag.DataPoints;
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>chart</title>
+    <link href="~/assets/css/style-rtl.css" rel="stylesheet" />
+    @if (ViewBag.calulate != null)
+    {
+        <script>
+            window.onload = function () {
+                var newchary = new CanvasJS.Chart("newchart", {
+                zoomEnabled: true,
+                animationEnabled: true,
+                exportEnabled: true,
+                title: {
+                    text: "چارت حد فاصله"
+                },
+                axisY: {
+                    includeZero: false,
+                    lineThickness: 1
+                },
+
+
+
+                data: @Html.Raw(ViewBag.calulate)
+
+            });
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    zoomEnabled: true,
+                    animationEnabled: true,
+                    exportEnabled: true,
+                    title: {
+                        text: "برای مطالعه دقیق تر زوم نمایید"
+                    },
+                    axisY: {
+                        includeZero: false,
+                        lineThickness: 1
+                    },
+
+
+
+                    data: @Html.Raw(ViewBag.DataPoints)
+
+                });
+            
+                var startTime = new Date();
+                chart.render();
+                newchary.render();
+            
+            
+                var endTime = new Date();
+                document.getElementById("timeToRender").innerHTML = "زمام پردازش : " + (endTime - startTime) + "ms";
+
+
+            
+            }
+
+
+        </script>
+    }
+    else
+    {
+        <script>
+            window.onload = function () {
+               var chart = new CanvasJS.Chart("chartContainer", {
+                    zoomEnabled: true,
+                    animationEnabled: true,
+                    exportEnabled: true,
+                    title: {
+                        text: "برای مطالعه دقیق تر زوم نمایید"
+                    },
+                    axisY: {
+                        includeZero: false,
+                        lineThickness: 1
+                    },
+
+
+
+                    data: @Html.Raw(ViewBag.DataPoints)
+
+                });
+            
+                var startTime = new Date();
+                chart.render();
+               
+            
+            
+                var endTime = new Date();
+                document.getElementById("timeToRender").innerHTML = "زمام پردازش : " + (endTime - startTime) + "ms";
+
+
+            
+            }
+
+
+        </script>
+    }
+    
+
+    <style>
+        .canvasjs-chart-tooltip {
+            direction: rtl
+        }
+
+        #timeToRender {
+            position: absolute;
+            top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            background-color: #d85757;
+            padding: 0px 4px;
+            color: #ffffff;
+        }
+    </style>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <span id="timeToRender"></span>
+    <button id="" onclick="ExportToExel()">خروجی فایل اکسل</button>
+    <input type="hidden" id="ssss" value="@Html.Raw(ViewBag.start)" />
+<input type="hidden" id="dddd" value="@Html.Raw(ViewBag.end)" />
+<table style="width: 100%;">
+    <tr>
+        <th style="border: 1px solid;">شناسه </th>
+        <th style="border: 1px solid;">پایین ترین  </th>
+        <th style="border: 1px solid;">بالاترین  </th>
+        <th style="border: 1px solid;">میانگین  </th>
+    </tr>
+    @foreach (var item in ViewBag.chartinformation as List<ChartInformation>)
+    {
+        <tr>
+            <td style="border: 1px solid;text-align: center">@item.Title</td>
+            <td style="border: 1px solid;;text-align: center">@item.LowPrice.ToString("C0")</td>
+            <td style="border: 1px solid;;text-align: center">@item.HightPrice.ToString("C0")</td>
+            <td style="border: 1px solid;;text-align: center">@item.Avarage.ToString("C0")</td>
+        </tr>
+    }
+</table>
+<div id="newchart" style="height: 370px; width: 100%;"></div>
+    @if (ViewBag.valculateishave == 1)
+    {
+        
+        <table style="width: 100%;">
+            <tr>
+                
+                <th style="border: 1px solid;">پایین ترین  </th>
+                <th style="border: 1px solid;">بالاترین  </th>
+                <th style="border: 1px solid;">میانگین  </th>
+            </tr>
+            @foreach (var item in ViewBag.calculateinformation  as List<ChartInformation>)
+            {
+                <tr>
+                   
+                    <td style="border: 1px solid;text-align: center">@item.LowPrice.ToString("C0")</td>
+                    <td style="border: 1px solid;text-align: center">@item.HightPrice.ToString("C0")</td>
+                    <td style="border: 1px solid;text-align: center">@item.Avarage.ToString("C0")</td>
+                </tr>
+            }
+        </table>
+    }
+
+    <script src="~/Scripts/canvasjs.min.js"></script>
+    <script src="~/Scripts/canvasjsascsv.min.js"></script>
+    <script>
+    function ExportToExel() {
+        var symbols =[];
+        var start =$("#ssss").val();
+        var end =$("#dddd").val();
+        symbols=@Html.Raw(ViewBag.symbol);
+        var url = "/MainPanel/Cheart/ExportToExel?";
+        for (var i = 0; i < symbols.length; i++) {
+
+            url += "symbol=" + symbols[i]  + "&";
+        }
+        //symbols.each(function(i, l ) {
+        //
+        //});
+        url += "starTime=" + start + "&endDateTime=" + end;
+        //alert(url);
+        window.open(url);
+    }
+    </script>
+</body>
+</html>

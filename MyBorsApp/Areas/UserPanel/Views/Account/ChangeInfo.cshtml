@@ -1,0 +1,55 @@
+﻿@model Models.Models.ViewModels.ChangeAccountInfoViewModel
+@{
+    ViewBag.Title = "ویرایش اطلاعات کاربری";
+    Layout = "~/Areas/MainPanel/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.Success == true)
+{
+    <div class="alert alert-success" id="alertsuccess">
+        <p>عملیات ویرایش اطلاعات کاربری با موفقیت انجام شده </p>
+    </div>
+
+}
+<div class="card">
+    <div class="card-body">
+        @using (Html.BeginForm("ChangeInfo", "Account", FormMethod.Post, new { @class = "form form-horizontal striped-rows" }))
+        {
+            <div class="form-body">
+                <div class="form-group row">
+                    @Html.LabelFor(Model => Model.FullName, new { @class = "col-md-3 label-control" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", placeholder = "نام و نام خانوادگی" } })
+                        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(Model => Model.PhoneNumber, new { @class = "col-md-3 label-control" })
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "شماره تماس" } })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="form-actions center">
+
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-check-square-o"></i>ذخیره
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section foter
+{
+    
+    <script>
+
+        $(document).ready(function () {
+            $("#alertsuccess").fadeOut( 4000 );
+        });
+
+    </script>
+}

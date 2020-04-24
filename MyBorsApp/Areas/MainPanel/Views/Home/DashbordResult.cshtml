@@ -1,0 +1,321 @@
+﻿@using Tools
+@model IEnumerable<Models.UserContracts>
+@{
+    
+
+
+}
+@foreach (var item in Model)
+{
+
+
+    
+
+
+    <div class="row" id="item_@item.ID">
+    <div class="card">
+    <div class="card-body">
+    <div class="row">
+        <div class="col-md-5">
+
+            <input @(item.IsActive ? "checked" : "") value="@item.ID" type="checkbox" class="switch switch9" data-icon-cls="fa" data-off-icon-cls="ft-thumbs-down"
+                                                     data-on-icon-cls="ft-thumbs-up" data-off-label="خاموش" data-on-label="روشن" />
+
+            <button onclick="Editerow(@item.ID)" type="button" class="btn  btn-outline-success" data-toggle="modal"
+                    data-target="#large">
+                <i class="fa fa-cog"></i>
+                <span>ویرایش</span>
+            </button>
+            <button type="button" class="btn  btn-outline-amber" onclick="chartView(@item.ID)">
+                <i class="fa fa-bar-chart"></i>
+                <span>نمودار</span>
+            </button>
+
+
+
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="media align-items-stretch">
+                            <div class="p-2 text-center bg-success bg-darken-2">
+                                <i class="icon-bar-chart font-large-2 white"></i>
+                            </div>
+                            <div class="p-2 bg-gradient-x-success white ">
+                                <h5>نسبت خرید</h5>
+                                <h5 class="text-bold-400 mb-0" id="nesbat12_@item.ID"> </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="media align-items-stretch">
+                            <div class="p-2 text-center bg-success bg-darken-2">
+                                <i class="icon-bar-chart font-large-2 white"></i>
+                            </div>
+                            <div class="p-2 bg-gradient-x-success white ">
+                                <h5>نسبت فروش</h5>
+                                <h5 class="text-bold-400 mb-0" id="nesbat21_@item.ID"></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-1">
+
+            <button onclick="deletrow(@item.ID)" type="button" class="pull-left btn  btn-outline-pink">
+                <i class="fa ft-x"></i>
+                <span></span>
+            </button>
+
+        </div>
+    </div>
+    <div class="col-md-12">
+    <div class="row">
+    <div class="col-md-6">
+        <div class="header">
+            <h2 id="ContractID1-@item.ID"> </h2>
+        </div>
+        <div class="table-responsive-sm" style="line-height: 1">
+            <table data-v-5e3adfba="" class="table table-striped table-bordered table1" style="font-size: 12px;">
+                <thead class="bg-warning " style="border: black"><tr data-v-5e3adfba="" class="sa-header1-table"><th data-v-5e3adfba="" rowspan="2">کد قرارداد <br data-v-5e3adfba=""></th> <th data-v-5e3adfba="" colspan="2">تقاضا</th> <th data-v-5e3adfba="" colspan="2">عرضه</th> <th data-v-5e3adfba="" colspan="4">قیمت های معامله شده</th></tr> <tr data-v-5e3adfba="" class="sa-header1-table"><th data-v-5e3adfba="">تعداد</th> <th data-v-5e3adfba="">قیمت</th> <th data-v-5e3adfba="">قیمت</th> <th data-v-5e3adfba="">تعداد</th> <th data-v-5e3adfba="" title="قیمت اولین معامله انجام شده ">اولین</th> <th data-v-5e3adfba="" title="بالاترین قیمت معامله شده ">بالاترین</th> <th data-v-5e3adfba="" title="پایین ترین قیمت معامله شده">پایین ترین</th> <th data-v-5e3adfba="" colspan="1" title="قیمت آخرین معامله انجام شده">آخرین</th></tr></thead>
+                <tbody data-v-5e3adfba="">
+                <tr data-v-5e3adfba="">
+                    <td data-v-5e3adfba="" rowspan="4" id="symbol1-@item.ID"></td>
+                    <td data-v-5e3adfba="" id="bidVolume1-1-@item.ID" class="pointer ddd">
+                    </td>
+                    <td data-v-5e3adfba="" id="bidPrice1-1-@item.ID" class="pointer sa-color-blue">
+                    </td>
+                    <td data-v-5e3adfba="" id="askPrice1-1-@item.ID" class="pointer sa-color-red">
+                    </td>
+                    <td data-v-5e3adfba="" id="askVolume1-1-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" id="firstTradedPrice-1-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" id="highTradedPrice-1-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" id="lowTradedPrice-1-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" colspan="1" id="lastTradedPrice-1-@item.ID" class="pointer">
+                    </td>
+                </tr>
+                <tr data-v-5e3adfba="">
+                    <td data-v-5e3adfba="" id="bidVolume2-1-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" id="bidPrice2-1-@item.ID" class="pointer sa-color-blue">
+                    </td>
+                    <td data-v-5e3adfba="" id="askPrice2-1-@item.ID" class="pointer sa-color-red">
+                    </td>
+                    <td data-v-5e3adfba="" id="askVolume2-1-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" title="تغییر نسبت به قیمت تسویه روزانه" class="" id="firstchangevalue-1-@item.ID">
+                    </td>
+                    <td data-v-5e3adfba="" title="تغییر نسبت به قیمت تسویه روزانه" class="green" id="Hightchangevalue-1-@item.ID">
+                    </td>
+                    <td data-v-5e3adfba="" title="تغییر نسبت به قیمت تسویه روزانه" class="" id="lowchangevalue-1-@item.ID">
+                    </td>
+                    <td data-v-5e3adfba="" colspan="1" title="تغییر نسبت به قیمت تسویه روزانه" class="green" id="lastchangevalue-1-@item.ID">
+                    </td>
+                </tr>
+                <tr data-v-5e3adfba="">
+                    <td data-v-5e3adfba="" id="bidVolume3-1-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" id="bidPrice3-1-@item.ID" class="pointer sa-color-blue">
+                    </td>
+                    <td data-v-5e3adfba="" id="askPrice3-1-@item.ID" class="pointer sa-color-red">
+                    </td>
+                    <td data-v-5e3adfba="" id="askVolume3-1-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" dir="ltr" title="تغییر نسبت به قیمت تسویه روزانه" class="" id="changeratefirst-1-@item.ID">
+                    </td>
+                    <td data-v-5e3adfba="" dir="ltr" title="تغییر نسبت به قیمت تسویه روزانه" class="green" id="changeratehight-1-@item.ID">
+                    </td>
+                    <td data-v-5e3adfba="" dir="ltr" title="تغییر نسبت به قیمت تسویه روزانه" class="" id="changeratelow-1-@item.ID">
+                    </td>
+                    <td data-v-5e3adfba="" dir="ltr" colspan="1" title="تغییر نسبت به قیمت تسویه روزانه" class="green" id="changeratelast-1-@item.ID">
+                    </td>
+                </tr>
+                <tr data-v-5e3adfba="" class="sa-Contents-table">
+                    <td data-v-5e3adfba="" title="حجم کل تقاضا" class="BidStyle">
+                        <b data-v-5e3adfba="">-</b>
+                    </td>
+                    <td data-v-5e3adfba="" colspan="2" class="text-md-center">حجم کل</td>
+                    <td data-v-5e3adfba="" title="حجم کل عرضه" class="AskStyle"><b data-v-5e3adfba="">-</b></td>
+                    <td data-v-5e3adfba="" colspan="4" title="نوع ارز" id="priceType-1-@item.ID" class="text-md-center">ریال</td>
+                </tr>
+                <tr data-v-5e3adfba="">
+                    <td data-v-5e3adfba="" title="تاریخ انتهای قرارداد" dir="ltr" id="lastTradingPDateTime-1-@item.ID"></td>
+                    <td data-v-5e3adfba="" id="ordersPDateTime-1-@item.ID" title="تاریخ ثبت آخرین سفارش" colspan="4" dir="ltr" class="text-md-center">
+                    </td>
+                    <td data-v-5e3adfba="" colspan="1" id="firstTradedPDateTime-1-@item.ID" dir="ltr" title="اولین تاریخ معامله ثبت شده">
+                    </td>
+                    <td data-v-5e3adfba="" colspan="2" rowspan="3"><span data-v-5e3adfba="" title="ارزش معاملات انجام شده" id="tradesValue-1-@item.ID" class="text-md-center"></span></td>
+                    <td data-v-5e3adfba="" colspan="1" id="lastTradedPDateTime-1-@item.ID" dir="ltr" title="آخرین تاریخ معامله ثبت شده ">
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot data-v-5e3adfba="">
+                <tr data-v-5e3adfba="" class="sa-header2-table">
+                    <td data-v-5e3adfba="">اندازه قرارداد</td>
+                    <td data-v-5e3adfba="" colspan="4" class="text-md-center">آخرین قیمت تسویه روزانه</td>
+                    <td data-v-5e3adfba="">آستانه قیمت</td>
+                    <td data-v-5e3adfba="">وجه تضمین</td>
+                    <td data-v-5e3adfba="" title="حجم معاملات انجام شده">حجم</td>
+                    <td data-v-5e3adfba="" title="موقعیت های تعهدی باز بازار">موقعیتهای باز</td>
+                </tr>
+                <tr data-v-5e3adfba="">
+                    <td data-v-5e3adfba="" rowspan="3" id="lot-1-@item.ID" class="text-md-center"></td>
+                    <td data-v-5e3adfba="" id="settlementsDate-1-@item.ID" dir="ltr" title="آخرین تاریخ تسویه" colspan="4" class="text-md-center">
+                    </td>
+                    <td data-v-5e3adfba="" id="maxPrice1-1-@item.ID" class="pointer sa-direction-ltr sa-color-green sa-green-shadow">
+                        <strong data-v-5e3adfba="">%+ 5</strong> (?)
+                    </td>
+                    <td data-v-5e3adfba="" rowspan="2" class="text-md-center" id="initialMargin-1-@item.ID"></td>
+                    <td data-v-5e3adfba="" id="tradesVolume-1-@item.ID" rowspan="3" class="text-md-center"></td>
+                    <td data-v-5e3adfba="" id="openInterests-1-@item.ID" class="text-md-center"></td>
+                </tr>
+                <tr data-v-5e3adfba="">
+                    <td data-v-5e3adfba="" id="realtimePrice-1-@item.ID" title=" تسویه لحظه‌ای" colspan="4" class="text-md-center">
+                    </td>
+                    <td data-v-5e3adfba="" id="minPrice-1-@item.ID" rowspan="2" class="pointer sa-direction-ltr sa-color-red sa-red-shadow">
+                        <strong data-v-5e3adfba="">%- 5</strong> (?)
+                    </td>
+                    <td data-v-5e3adfba="" id="openInterestsChanges-1-@item.ID" rowspan="2" dir="auto" class="text-md-center">
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+    <div class="col-md-6 " style="padding-right: 35px">
+        <div class="header">
+            <h2 id="ContractID2-@item.ID"></h2>
+        </div>
+        <div class="table-responsive-sm" style="line-height: 1">
+            <table data-v-5e3adfba="" class="table table-striped table-bordered table1" style="font-size: 12px;">
+                <thead class="bg-warning " style="border: black"><tr data-v-5e3adfba="" class="sa-header1-table"><th data-v-5e3adfba="" rowspan="2">کد قرارداد <br data-v-5e3adfba=""></th> <th data-v-5e3adfba="" colspan="2">تقاضا</th> <th data-v-5e3adfba="" colspan="2">عرضه</th> <th data-v-5e3adfba="" colspan="4">قیمت های معامله شده</th></tr> <tr data-v-5e3adfba="" class="sa-header1-table"><th data-v-5e3adfba="">تعداد</th> <th data-v-5e3adfba="">قیمت</th> <th data-v-5e3adfba="">قیمت</th> <th data-v-5e3adfba="">تعداد</th> <th data-v-5e3adfba="" title="قیمت اولین معامله انجام شده ">اولین</th> <th data-v-5e3adfba="" title="بالاترین قیمت معامله شده ">بالاترین</th> <th data-v-5e3adfba="" title="پایین ترین قیمت معامله شده">پایین ترین</th> <th data-v-5e3adfba="" colspan="1" title="قیمت آخرین معامله انجام شده">آخرین</th></tr></thead>
+                <tbody data-v-5e3adfba="">
+                <tr data-v-5e3adfba="">
+                    <td data-v-5e3adfba="" rowspan="4" id="symbol2-@item.ID"></td>
+                    <td data-v-5e3adfba="" id="bidVolume1-2-@item.ID" class="pointer ddd">
+                    </td>
+                    <td data-v-5e3adfba="" id="bidPrice1-2-@item.ID" class="pointer sa-color-blue">
+                    </td>
+                    <td data-v-5e3adfba="" id="askPrice1-2-@item.ID" class="pointer sa-color-red">
+                    </td>
+                    <td data-v-5e3adfba="" id="askVolume1-2-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" id="firstTradedPrice-2-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" id="highTradedPrice-2-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" id="lowTradedPrice-2-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" colspan="1" id="lastTradedPrice-2-@item.ID" class="pointer">
+                    </td>
+                </tr>
+                <tr data-v-5e3adfba="">
+                    <td data-v-5e3adfba="" id="bidVolume2-2-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" id="bidPrice2-2-@item.ID" class="pointer sa-color-blue">
+                    </td>
+                    <td data-v-5e3adfba="" id="askPrice2-2-@item.ID" class="pointer sa-color-red">
+                    </td>
+                    <td data-v-5e3adfba="" id="askVolume2-2-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" title="تغییر نسبت به قیمت تسویه روزانه" class="" id="firstchangevalue-2-@item.ID">
+                    </td>
+                    <td data-v-5e3adfba="" title="تغییر نسبت به قیمت تسویه روزانه" class="green" id="Hightchangevalue-2-@item.ID">
+                    </td>
+                    <td data-v-5e3adfba="" title="تغییر نسبت به قیمت تسویه روزانه" class="" id="lowchangevalue-2-@item.ID">
+                    </td>
+                    <td data-v-5e3adfba="" colspan="1" title="تغییر نسبت به قیمت تسویه روزانه" class="green" id="lastchangevalue-2-@item.ID">
+                    </td>
+                </tr>
+                <tr data-v-5e3adfba="">
+                    <td data-v-5e3adfba="" id="bidVolume3-2-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" id="bidPrice3-2-@item.ID" class="pointer sa-color-blue">
+                    </td>
+                    <td data-v-5e3adfba="" id="askPrice3-2-@item.ID" class="pointer sa-color-red">
+                    </td>
+                    <td data-v-5e3adfba="" id="askVolume3-2-@item.ID" class="pointer">
+                    </td>
+                    <td data-v-5e3adfba="" dir="ltr" title="تغییر نسبت به قیمت تسویه روزانه" class="" id="changeratefirst-2-@item.ID">
+                    </td>
+                    <td data-v-5e3adfba="" dir="ltr" title="تغییر نسبت به قیمت تسویه روزانه" class="green" id="changeratehight-2-@item.ID">
+                    </td>
+                    <td data-v-5e3adfba="" dir="ltr" title="تغییر نسبت به قیمت تسویه روزانه" class="" id="changeratelow-2-@item.ID">
+                    </td>
+                    <td data-v-5e3adfba="" dir="ltr" colspan="1" title="تغییر نسبت به قیمت تسویه روزانه" class="green" id="changeratelast-2-@item.ID">
+                    </td>
+                </tr>
+                <tr data-v-5e3adfba="" class="sa-Contents-table">
+                    <td data-v-5e3adfba="" title="حجم کل تقاضا" class="BidStyle">
+                        <b data-v-5e3adfba="">-</b>
+                    </td>
+                    <td data-v-5e3adfba="" colspan="2" class="text-md-center">حجم کل</td>
+                    <td data-v-5e3adfba="" title="حجم کل عرضه" class="AskStyle"><b data-v-5e3adfba="">-</b></td>
+                    <td data-v-5e3adfba="" colspan="4" title="نوع ارز" id="priceType-2-@item.ID" class="text-md-center">ریال</td>
+                </tr>
+                <tr data-v-5e3adfba="">
+                    <td data-v-5e3adfba="" title="تاریخ انتهای قرارداد" dir="ltr" id="lastTradingPDateTime-2-@item.ID"></td>
+                    <td data-v-5e3adfba="" id="ordersPDateTime-2-@item.ID" title="تاریخ ثبت آخرین سفارش" colspan="4" dir="ltr" class="text-md-center">
+                    </td>
+                    <td data-v-5e3adfba="" colspan="1" id="firstTradedPDateTime-2-@item.ID" dir="ltr" title="اولین تاریخ معامله ثبت شده">
+                    </td>
+                    <td data-v-5e3adfba="" colspan="2" rowspan="3"><span data-v-5e3adfba="" title="ارزش معاملات انجام شده" id="tradesValue-2-@item.ID" class="text-md-center"></span></td>
+                    <td data-v-5e3adfba="" colspan="1" id="lastTradedPDateTime-2-@item.ID" dir="ltr" title="آخرین تاریخ معامله ثبت شده ">
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot data-v-5e3adfba="">
+                <tr data-v-5e3adfba="" class="sa-header2-table">
+                    <td data-v-5e3adfba="">اندازه قرارداد</td>
+                    <td data-v-5e3adfba="" colspan="4" class="text-md-center">آخرین قیمت تسویه روزانه</td>
+                    <td data-v-5e3adfba="">آستانه قیمت</td>
+                    <td data-v-5e3adfba="">وجه تضمین</td>
+                    <td data-v-5e3adfba="" title="حجم معاملات انجام شده">حجم</td>
+                    <td data-v-5e3adfba="" title="موقعیت های تعهدی باز بازار">موقعیتهای باز</td>
+                </tr>
+                <tr data-v-5e3adfba="">
+                    <td data-v-5e3adfba="" rowspan="3" id="lot-2-@item.ID" class="text-md-center"></td>
+                    <td data-v-5e3adfba="" id="settlementsDate-2-@item.ID" dir="ltr" title="آخرین تاریخ تسویه" colspan="4" class="text-md-center">
+                    </td>
+                    <td data-v-5e3adfba="" id="maxPrice2-@item.ID" class="pointer sa-direction-ltr sa-color-green sa-green-shadow">
+                        <strong data-v-5e3adfba="">%+ 5</strong> (?)
+                    </td>
+                    <td data-v-5e3adfba="" rowspan="2" class="text-md-center" id="initialMargin-2-@item.ID"></td>
+                    <td data-v-5e3adfba="" id="tradesVolume-2-@item.ID" rowspan="3" class="text-md-center"></td>
+                    <td data-v-5e3adfba="" id="openInterests-2-@item.ID" class="text-md-center"></td>
+                </tr>
+                <tr data-v-5e3adfba="">
+                    <td data-v-5e3adfba="" id="realtimePrice-2-@item.ID" title=" تسویه لحظه‌ای" colspan="4" class="text-md-center">
+                    </td>
+                    <td data-v-5e3adfba="" id="minPrice2-@item.ID" rowspan="2" class="pointer sa-direction-ltr sa-color-red sa-red-shadow">
+                        <strong data-v-5e3adfba="">%- 5</strong> (?)
+                    </td>
+                    <td data-v-5e3adfba="" id="openInterestsChanges-2-@item.ID" rowspan="2" dir="auto" class="text-md-center">
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+
+
+        </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
+    </div>
+
+    </div>
+    
+}
